@@ -72,7 +72,6 @@ public class World implements Serializable{
 				else tiles[i][j] = new Tile(Assets.a24);
 			}
 		}
-		
 	}
 	
 	public int getWorldSize() { return worldSize; }
