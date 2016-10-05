@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 
 import dev.tilegame.Game;
 import dev.tilegame.states.GameState;
+import dev.tilegame.states.State;
 
 public class KeyManager implements KeyListener{
 	
@@ -25,7 +26,8 @@ public class KeyManager implements KeyListener{
 	
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()]=true;
-		if(game.isServer()==1 && e.getKeyCode() == KeyEvent.VK_Q) GameState.editor.setVisible(!GameState.editor.isVisible());
+		if(game.isServer()==1 && State.getState().equals(game.gameState) && e.getKeyCode() == KeyEvent.VK_Q)
+			GameState.editor.setVisible(!GameState.editor.isVisible());
 	}
 	public void keyReleased(KeyEvent e) { keys[e.getKeyCode()]=false; }
 	public void keyTyped(KeyEvent e) {}
