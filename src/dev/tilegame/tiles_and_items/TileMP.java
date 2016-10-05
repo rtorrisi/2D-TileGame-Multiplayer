@@ -8,7 +8,7 @@ public class TileMP extends Tile{
 	private int x, y;
 	
 	public TileMP(int index, boolean collision, int x, int y) {
-		super(Assets.tileList.get(index), collision);
+		super(Assets.tileList.get(index-1), collision);
 		this.index=index;
 		this.x=x;
 		this.y=y;

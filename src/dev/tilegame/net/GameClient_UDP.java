@@ -9,8 +9,10 @@ import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
+import dev.tilegame.Game;
 import dev.tilegame.Handler;
 import dev.tilegame.entities.creatures.PlayerMP;
+import dev.tilegame.entities.statics.Decoration;
 import dev.tilegame.gfx.Assets;
 import dev.tilegame.net.packets.Packet;
 import dev.tilegame.net.packets.Packet.PacketTypes;
@@ -19,6 +21,8 @@ import dev.tilegame.net.packets.Packet01Disconnect;
 import dev.tilegame.net.packets.Packet02Move;
 import dev.tilegame.net.packets.Packet10CheckName;
 import dev.tilegame.net.packets.Packet11Tile;
+import dev.tilegame.net.packets.Packet12Item;
+import dev.tilegame.tiles_and_items.Item;
 import dev.tilegame.tiles_and_items.Tile;
 import dev.tilegame.worlds.World;
 
@@ -89,7 +93,11 @@ public class GameClient_UDP extends Thread {
 			packet = new Packet11Tile(data);
 			handleTile((Packet11Tile)packet);
 			break;
-			
+		
+		case ITEM:
+			packet = new Packet12Item(data);
+			handleItem((Packet12Item)packet);
+			break;
 			
 		case DISCONNECT:
 			packet = new Packet01Disconnect(data);
@@ -119,9 +127,17 @@ public class GameClient_UDP extends Thread {
 	
 	private void handleTile(Packet11Tile packet) {
 		int tileIndex = packet.getTileIndex();
-		boolean collision=(packet.getCollision()==1?true:false);
+		boolean collision=(packet.hasCollision()==1?true:false);
 		
 		World.tiles[packet.getY()][packet.getX()] = new Tile( Assets.tileList.get(tileIndex-1), collision);
+	}
+	
+	private void handleItem(Packet12Item packet) {
+		int tileIndex = packet.getTileIndex();
+		boolean collision=(packet.hasCollision()==1?true:false);
+		boolean interaction =(packet.hasInteraction()==1?true:false);
+		World.items[packet.getY()][packet.getX()] = new Item(Assets.itemList.get(tileIndex-1), collision, interaction);
+		handler.getWorld().entityManager.addEntity(new Decoration(handler, World.items[packet.getY()][packet.getX()], packet.getX()*Game.grid, packet.getY()*Game.grid));
 	}
 	
 }

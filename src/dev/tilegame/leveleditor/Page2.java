@@ -15,8 +15,8 @@ import dev.tilegame.tiles_and_items.Tile;
 
 public class Page2 extends JPanel implements ActionListener{
 	
-	final int pageNumber=2;
-	final int pageIndex = (pageNumber-1)*72;
+	final int tilePageNumber=2;
+	final int pageIndex = (tilePageNumber-1)*72;
 	private static final long serialVersionUID = 1L;
 	private PreviewPanel pp;
 	

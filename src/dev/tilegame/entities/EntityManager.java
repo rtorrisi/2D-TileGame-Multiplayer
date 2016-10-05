@@ -30,7 +30,7 @@ public class EntityManager {
 		for(int i = 0; i<entities.size(); i++){
 			entities.get(i).tick();
 		}
-		try { entities.sort(renderSorter); } catch(RuntimeException e) { e.printStackTrace(); }
+		try { entities.sort(renderSorter); } catch(RuntimeException e) {}
 		
 	}
 	
@@ -82,7 +82,6 @@ public class EntityManager {
 		for(int i = 0; i < entities.size();i++){
 			Entity tmp = entities.get(i);
 			if (tmp.getX()==e.getX() && tmp.getY()==e.getY()){
-				System.out.println("removing");
 				entities.remove(i);
 				return;
 			}

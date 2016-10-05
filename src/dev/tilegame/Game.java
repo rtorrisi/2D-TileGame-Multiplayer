@@ -180,7 +180,7 @@ public class Game implements Runnable, Serializable {
 			try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
 		}while(username.length()>8 || validUsername.equalsIgnoreCase("used"));
 		
-		player = new PlayerMP(1, username, handler, 20, 20, null, -1);		
+		player = new PlayerMP(1, username, handler, 400, 400, null, -1);		
 		handler.getWorld().entityManager.addEntity(player);
 		
 		//Creazione pacchetto login

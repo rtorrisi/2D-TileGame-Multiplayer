@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
+
 import dev.tilegame.Handler;
 import dev.tilegame.entities.creatures.PlayerMP;
 import dev.tilegame.net.packets.Packet;
@@ -16,6 +17,8 @@ import dev.tilegame.net.packets.Packet01Disconnect;
 import dev.tilegame.net.packets.Packet02Move;
 import dev.tilegame.net.packets.Packet10CheckName;
 import dev.tilegame.net.packets.Packet11Tile;
+import dev.tilegame.net.packets.Packet12Item;
+import dev.tilegame.tiles_and_items.ItemMP;
 import dev.tilegame.tiles_and_items.TileMP;
 
 public class GameServer_UDP extends Thread {
@@ -24,6 +27,7 @@ public class GameServer_UDP extends Thread {
 	private DatagramSocket socket;
 	private List<PlayerMP> connectedPlayers = new ArrayList<PlayerMP>();
 	private List<TileMP> multiplayerTile = new ArrayList<TileMP>();
+	private List<ItemMP> multiplayerItem = new ArrayList<ItemMP>();
 	
 	public GameServer_UDP(Handler handler, int serverPort) {
 		this.handler = handler;
@@ -73,6 +77,13 @@ public class GameServer_UDP extends Thread {
 				sendData(pack.getData(), player.ipClient, player.portClient);
 			}
 			
+			for(int i=0; i<multiplayerItem.size(); i++) {
+				int collision = (multiplayerItem.get(i).hasCollider()==true?1:0);
+				int interaction = (multiplayerItem.get(i).hasInteraction()==true?1:0);
+				Packet12Item pack = new Packet12Item(multiplayerItem.get(i).getIndex(), collision, interaction, multiplayerItem.get(i).getX(), multiplayerItem.get(i).getY());
+				sendData(pack.getData(), player.ipClient, player.portClient);
+			}
+			
 			break;
 			
 		case CHECKNAME:
@@ -88,6 +99,12 @@ public class GameServer_UDP extends Thread {
 		case TILE:
 			packet = new Packet11Tile(data);
 			handleTile((Packet11Tile)packet);
+			sendDataToAllClients(data);
+			break;
+			
+		case ITEM:
+			packet = new Packet12Item(data);
+			handleItem((Packet12Item)packet);
 			sendDataToAllClients(data);
 			break;
 			
@@ -110,16 +127,32 @@ public class GameServer_UDP extends Thread {
 	}
 	
 	private void handleTile(Packet11Tile packet) {
-		boolean collision = (packet.getCollision()==1?true:false);
+		boolean collision = (packet.hasCollision()==1?true:false);
 		TileMP t = new TileMP(packet.getTileIndex(), collision, packet.getX(), packet.getY());
 		removeDoubleTile(t);
 		multiplayerTile.add(t);
+	}
+	
+	private void handleItem(Packet12Item packet) {
+		boolean collision = (packet.hasCollision()==1?true:false);
+		boolean interaction = (packet.hasInteraction()==1?true:false);
+		ItemMP t = new ItemMP(packet.getTileIndex(), collision, interaction, packet.getX(), packet.getY());
+		removeDoubleItem(t);
+		multiplayerItem.add(t);
 	}
 	
 	private void removeDoubleTile(TileMP t) {
 		for(int i=0; i<multiplayerTile.size(); i++) {
 			if(t.getX() == multiplayerTile.get(i).getX() && t.getY() == multiplayerTile.get(i).getY()) {
 				multiplayerTile.remove(i);
+				return;
+			}
+		}
+	}
+	private void removeDoubleItem(ItemMP t) {
+		for(int i=0; i<multiplayerItem.size(); i++) {
+			if(t.getX() == multiplayerItem.get(i).getX() && t.getY() == multiplayerItem.get(i).getY()) {
+				multiplayerItem.remove(i);
 				return;
 			}
 		}

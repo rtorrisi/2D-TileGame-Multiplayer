@@ -14,6 +14,7 @@ import dev.tilegame.Handler;
 import dev.tilegame.entities.statics.Decoration;
 import dev.tilegame.gfx.LevelEditorCamera;
 import dev.tilegame.net.packets.Packet11Tile;
+import dev.tilegame.net.packets.Packet12Item;
 import dev.tilegame.tiles_and_items.Item;
 import dev.tilegame.tiles_and_items.Tile;
 import dev.tilegame.worlds.World;
@@ -99,9 +100,7 @@ public class PreviewPanel extends JPanel implements MouseListener, MouseMotionLi
 			}
 			else if(paintItem==null) {
 				World.tiles[y][x] = paintTile;
-				int collision;
-				if(paintTile.hasCollider()) collision=1;
-				else collision=0;
+				int collision = (paintTile.hasCollider()?1:0);
 				Packet11Tile packet = new Packet11Tile(index, collision, x, y);
 				packet.writeData(Game.getClient());
 			}
@@ -109,6 +108,10 @@ public class PreviewPanel extends JPanel implements MouseListener, MouseMotionLi
 			else if(paintTile==null) {
 				World.items[y][x] = paintItem;
 				world.entityManager.addEntity(new Decoration(handler, paintItem, x*Game.grid, y*Game.grid));
+				int collision = (paintItem.hasCollider()?1:0);
+				int interaction = (paintItem.hasInteraction()?1:0);
+				Packet12Item packet = new Packet12Item(index, collision, interaction, x, y);
+				packet.writeData(Game.getClient());
 			}
 		}
 	

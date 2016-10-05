@@ -293,89 +293,89 @@ public class Assets implements Serializable{
 		 
 	//PAGE 3
 		sheet = new SpriteSheet(ImageLoader.loadImage("/textures/page3.png"));
-		c1 = sheet.crop(0, 0, sWidth, sHeight); tileList.add(c1);
-		c2 = sheet.crop(sWidth, 0, sWidth, sHeight); tileList.add(c2);
-		c3 = sheet.crop(sWidth*2, 0, sWidth, sHeight); tileList.add(c3);
-		c4 = sheet.crop(sWidth*3, 0, sWidth, sHeight); tileList.add(c4);
-		c5 = sheet.crop(sWidth*4, 0, sWidth, sHeight); tileList.add(c5);
-		c6 = sheet.crop(sWidth*5, 0, sWidth, sHeight); tileList.add(c6);
+		c1 = sheet.crop(0, 0, sWidth, sHeight); itemList.add(c1);
+		c2 = sheet.crop(sWidth, 0, sWidth, sHeight); itemList.add(c2);
+		c3 = sheet.crop(sWidth*2, 0, sWidth, sHeight); itemList.add(c3);
+		c4 = sheet.crop(sWidth*3, 0, sWidth, sHeight); itemList.add(c4);
+		c5 = sheet.crop(sWidth*4, 0, sWidth, sHeight); itemList.add(c5);
+		c6 = sheet.crop(sWidth*5, 0, sWidth, sHeight); itemList.add(c6);
 			
-		c7 = sheet.crop(0, sHeight, sWidth, sHeight); tileList.add(c7);
-		c8 = sheet.crop(sWidth, sHeight, sWidth, sHeight); tileList.add(c8);
-		c9 = sheet.crop(sWidth*2, sHeight, sWidth, sHeight); tileList.add(c9);
-		c10 = sheet.crop(sWidth*3, sHeight, sWidth, sHeight); tileList.add(c10);
-		c11 = sheet.crop(sWidth*4, sHeight, sWidth, sHeight); tileList.add(c11);
-		c12 = sheet.crop(sWidth*5, sHeight, sWidth, sHeight); tileList.add(c12);
+		c7 = sheet.crop(0, sHeight, sWidth, sHeight); itemList.add(c7);
+		c8 = sheet.crop(sWidth, sHeight, sWidth, sHeight); itemList.add(c8);
+		c9 = sheet.crop(sWidth*2, sHeight, sWidth, sHeight); itemList.add(c9);
+		c10 = sheet.crop(sWidth*3, sHeight, sWidth, sHeight); itemList.add(c10);
+		c11 = sheet.crop(sWidth*4, sHeight, sWidth, sHeight); itemList.add(c11);
+		c12 = sheet.crop(sWidth*5, sHeight, sWidth, sHeight); itemList.add(c12);
 			
-		c13 = sheet.crop(0, sHeight*2, sWidth, sHeight); tileList.add(c13);
-		c14 = sheet.crop(sWidth, sHeight*2, sWidth, sHeight); tileList.add(c14);
-		c15 = sheet.crop(sWidth*2, sHeight*2, sWidth, sHeight); tileList.add(c15);
-		c16 = sheet.crop(sWidth*3, sHeight*2, sWidth, sHeight); tileList.add(c16);
-		c17 = sheet.crop(sWidth*4, sHeight*2, sWidth, sHeight); tileList.add(c17);
-		c18 = sheet.crop(sWidth*5, sHeight*2, sWidth, sHeight); tileList.add(c18);
+		c13 = sheet.crop(0, sHeight*2, sWidth, sHeight); itemList.add(c13);
+		c14 = sheet.crop(sWidth, sHeight*2, sWidth, sHeight); itemList.add(c14);
+		c15 = sheet.crop(sWidth*2, sHeight*2, sWidth, sHeight); itemList.add(c15);
+		c16 = sheet.crop(sWidth*3, sHeight*2, sWidth, sHeight); itemList.add(c16);
+		c17 = sheet.crop(sWidth*4, sHeight*2, sWidth, sHeight); itemList.add(c17);
+		c18 = sheet.crop(sWidth*5, sHeight*2, sWidth, sHeight); itemList.add(c18);
 				
-		c19 = sheet.crop(0, sHeight*3, sWidth, sHeight); tileList.add(c19);
-		c20 = sheet.crop(sWidth, sHeight*3, sWidth, sHeight); tileList.add(c20);
-		c21 = sheet.crop(sWidth*2, sHeight*3, sWidth, sHeight); tileList.add(c21);
-		c22 = sheet.crop(sWidth*3, sHeight*3, sWidth, sHeight); tileList.add(c22);
-		c23 = sheet.crop(sWidth*4, sHeight*3, sWidth, sHeight); tileList.add(c23);
-		c24 = sheet.crop(sWidth*5, sHeight*3, sWidth, sHeight); tileList.add(c24);
+		c19 = sheet.crop(0, sHeight*3, sWidth, sHeight); itemList.add(c19);
+		c20 = sheet.crop(sWidth, sHeight*3, sWidth, sHeight); itemList.add(c20);
+		c21 = sheet.crop(sWidth*2, sHeight*3, sWidth, sHeight); itemList.add(c21);
+		c22 = sheet.crop(sWidth*3, sHeight*3, sWidth, sHeight); itemList.add(c22);
+		c23 = sheet.crop(sWidth*4, sHeight*3, sWidth, sHeight); itemList.add(c23);
+		c24 = sheet.crop(sWidth*5, sHeight*3, sWidth, sHeight); itemList.add(c24);
 				
-		c25 = sheet.crop(0, sHeight*4, sWidth, sHeight); tileList.add(c25);
-		c26 = sheet.crop(sWidth, sHeight*4, sWidth, sHeight); tileList.add(c26);
-		c27 = sheet.crop(sWidth*2, sHeight*4, sWidth, sHeight); tileList.add(c27);
-		c28 = sheet.crop(sWidth*3, sHeight*4, sWidth, sHeight); tileList.add(c28);
-		c29 = sheet.crop(sWidth*4, sHeight*4, sWidth, sHeight); tileList.add(c29);
-		c30 = sheet.crop(sWidth*5, sHeight*4, sWidth, sHeight); tileList.add(c30);
+		c25 = sheet.crop(0, sHeight*4, sWidth, sHeight); itemList.add(c25);
+		c26 = sheet.crop(sWidth, sHeight*4, sWidth, sHeight); itemList.add(c26);
+		c27 = sheet.crop(sWidth*2, sHeight*4, sWidth, sHeight); itemList.add(c27);
+		c28 = sheet.crop(sWidth*3, sHeight*4, sWidth, sHeight); itemList.add(c28);
+		c29 = sheet.crop(sWidth*4, sHeight*4, sWidth, sHeight); itemList.add(c29);
+		c30 = sheet.crop(sWidth*5, sHeight*4, sWidth, sHeight); itemList.add(c30);
 				
-		c31 = sheet.crop(0, sHeight*5, sWidth, sHeight); tileList.add(c31);
-		c32 = sheet.crop(sWidth, sHeight*5, sWidth, sHeight); tileList.add(c32);
-		c33 = sheet.crop(sWidth*2, sHeight*5, sWidth, sHeight); tileList.add(c33);
-		c34 = sheet.crop(sWidth*3, sHeight*5, sWidth, sHeight); tileList.add(c34);
-		c35 = sheet.crop(sWidth*4, sHeight*5, sWidth, sHeight); tileList.add(c35);
-		c36 = sheet.crop(sWidth*5, sHeight*5, sWidth, sHeight); tileList.add(c36);
+		c31 = sheet.crop(0, sHeight*5, sWidth, sHeight); itemList.add(c31);
+		c32 = sheet.crop(sWidth, sHeight*5, sWidth, sHeight); itemList.add(c32);
+		c33 = sheet.crop(sWidth*2, sHeight*5, sWidth, sHeight); itemList.add(c33);
+		c34 = sheet.crop(sWidth*3, sHeight*5, sWidth, sHeight); itemList.add(c34);
+		c35 = sheet.crop(sWidth*4, sHeight*5, sWidth, sHeight); itemList.add(c35);
+		c36 = sheet.crop(sWidth*5, sHeight*5, sWidth, sHeight); itemList.add(c36);
 				
-		c37 = sheet.crop(0, sHeight*6, sWidth, sHeight); tileList.add(c37);
-		c38 = sheet.crop(sWidth, sHeight*6, sWidth, sHeight); tileList.add(c38);
-		c39 = sheet.crop(sWidth*2, sHeight*6, sWidth, sHeight); tileList.add(c39);
-		c40 = sheet.crop(sWidth*3, sHeight*6, sWidth, sHeight); tileList.add(c40);
-		c41 = sheet.crop(sWidth*4, sHeight*6, sWidth, sHeight); tileList.add(c41);
-		c42 = sheet.crop(sWidth*5, sHeight*6, sWidth, sHeight); tileList.add(c42);
+		c37 = sheet.crop(0, sHeight*6, sWidth, sHeight); itemList.add(c37);
+		c38 = sheet.crop(sWidth, sHeight*6, sWidth, sHeight); itemList.add(c38);
+		c39 = sheet.crop(sWidth*2, sHeight*6, sWidth, sHeight); itemList.add(c39);
+		c40 = sheet.crop(sWidth*3, sHeight*6, sWidth, sHeight); itemList.add(c40);
+		c41 = sheet.crop(sWidth*4, sHeight*6, sWidth, sHeight); itemList.add(c41);
+		c42 = sheet.crop(sWidth*5, sHeight*6, sWidth, sHeight); itemList.add(c42);
 				
-		c43 = sheet.crop(0, sHeight*7, sWidth, sHeight); tileList.add(c43);
-		c44 = sheet.crop(sWidth, sHeight*7, sWidth, sHeight); tileList.add(c44);
-		c45 = sheet.crop(sWidth*2, sHeight*7, sWidth, sHeight); tileList.add(c45);
-		c46 = sheet.crop(sWidth*3, sHeight*7, sWidth, sHeight); tileList.add(c46);
-		c47 = sheet.crop(sWidth*4, sHeight*7, sWidth, sHeight); tileList.add(c47);
-		c48 = sheet.crop(sWidth*5, sHeight*7, sWidth, sHeight); tileList.add(c48);
+		c43 = sheet.crop(0, sHeight*7, sWidth, sHeight); itemList.add(c43);
+		c44 = sheet.crop(sWidth, sHeight*7, sWidth, sHeight); itemList.add(c44);
+		c45 = sheet.crop(sWidth*2, sHeight*7, sWidth, sHeight); itemList.add(c45);
+		c46 = sheet.crop(sWidth*3, sHeight*7, sWidth, sHeight); itemList.add(c46);
+		c47 = sheet.crop(sWidth*4, sHeight*7, sWidth, sHeight); itemList.add(c47);
+		c48 = sheet.crop(sWidth*5, sHeight*7, sWidth, sHeight); itemList.add(c48);
 				
-		c49 = sheet.crop(0, sHeight*8, sWidth, sHeight); tileList.add(c49);
-		c50 = sheet.crop(sWidth, sHeight*8, sWidth, sHeight); tileList.add(c50);
-		c51 = sheet.crop(sWidth*2, sHeight*8, sWidth, sHeight); tileList.add(c51);
-		c52 = sheet.crop(sWidth*3, sHeight*8, sWidth, sHeight); tileList.add(c52);
-		c53 = sheet.crop(sWidth*4, sHeight*8, sWidth, sHeight); tileList.add(c53);
-		c54 = sheet.crop(sWidth*5, sHeight*8, sWidth, sHeight); tileList.add(c54);
+		c49 = sheet.crop(0, sHeight*8, sWidth, sHeight); itemList.add(c49);
+		c50 = sheet.crop(sWidth, sHeight*8, sWidth, sHeight); itemList.add(c50);
+		c51 = sheet.crop(sWidth*2, sHeight*8, sWidth, sHeight); itemList.add(c51);
+		c52 = sheet.crop(sWidth*3, sHeight*8, sWidth, sHeight); itemList.add(c52);
+		c53 = sheet.crop(sWidth*4, sHeight*8, sWidth, sHeight); itemList.add(c53);
+		c54 = sheet.crop(sWidth*5, sHeight*8, sWidth, sHeight); itemList.add(c54);
 				
-		c55 = sheet.crop(0, sHeight*9, sWidth, sHeight); tileList.add(c55);
-		c56 = sheet.crop(sWidth, sHeight*9, sWidth, sHeight); tileList.add(c56);
-		c57= sheet.crop(sWidth*2, sHeight*9, sWidth, sHeight); tileList.add(c57);
-		c58 = sheet.crop(sWidth*3, sHeight*9, sWidth, sHeight); tileList.add(c58);
-		c59 = sheet.crop(sWidth*4, sHeight*9, sWidth, sHeight); tileList.add(c59);
-		c60 = sheet.crop(sWidth*5, sHeight*9, sWidth, sHeight); tileList.add(c60);
+		c55 = sheet.crop(0, sHeight*9, sWidth, sHeight); itemList.add(c55);
+		c56 = sheet.crop(sWidth, sHeight*9, sWidth, sHeight); itemList.add(c56);
+		c57= sheet.crop(sWidth*2, sHeight*9, sWidth, sHeight); itemList.add(c57);
+		c58 = sheet.crop(sWidth*3, sHeight*9, sWidth, sHeight); itemList.add(c58);
+		c59 = sheet.crop(sWidth*4, sHeight*9, sWidth, sHeight); itemList.add(c59);
+		c60 = sheet.crop(sWidth*5, sHeight*9, sWidth, sHeight); itemList.add(c60);
 				
-		c61 = sheet.crop(0, sHeight*10, sWidth, sHeight); tileList.add(c61);
-		c62 = sheet.crop(sWidth, sHeight*10, sWidth, sHeight); tileList.add(c62);
-		c63 = sheet.crop(sWidth*2, sHeight*10, sWidth, sHeight); tileList.add(c63);
-		c64 = sheet.crop(sWidth*3, sHeight*10, sWidth, sHeight); tileList.add(c64);
-		c65 = sheet.crop(sWidth*4, sHeight*10, sWidth, sHeight); tileList.add(c65);
-		c66 = sheet.crop(sWidth*5, sHeight*10, sWidth, sHeight); tileList.add(c66);
+		c61 = sheet.crop(0, sHeight*10, sWidth, sHeight); itemList.add(c61);
+		c62 = sheet.crop(sWidth, sHeight*10, sWidth, sHeight); itemList.add(c62);
+		c63 = sheet.crop(sWidth*2, sHeight*10, sWidth, sHeight); itemList.add(c63);
+		c64 = sheet.crop(sWidth*3, sHeight*10, sWidth, sHeight); itemList.add(c64);
+		c65 = sheet.crop(sWidth*4, sHeight*10, sWidth, sHeight); itemList.add(c65);
+		c66 = sheet.crop(sWidth*5, sHeight*10, sWidth, sHeight); itemList.add(c66);
 
-		c67 = sheet.crop(0, sHeight*11, sWidth, sHeight); tileList.add(c67);
-		c68 = sheet.crop(sWidth, sHeight*11, sWidth, sHeight); tileList.add(c68);
-		c69 = sheet.crop(sWidth*2, sHeight*11, sWidth, sHeight); tileList.add(c69);
-		c70 = sheet.crop(sWidth*3, sHeight*11, sWidth, sHeight); tileList.add(c70);
-		c71 = sheet.crop(sWidth*4, sHeight*11, sWidth, sHeight); tileList.add(c71);
-		c72 = sheet.crop(sWidth*5, sHeight*11, sWidth, sHeight); tileList.add(c72);
+		c67 = sheet.crop(0, sHeight*11, sWidth, sHeight); itemList.add(c67);
+		c68 = sheet.crop(sWidth, sHeight*11, sWidth, sHeight); itemList.add(c68);
+		c69 = sheet.crop(sWidth*2, sHeight*11, sWidth, sHeight); itemList.add(c69);
+		c70 = sheet.crop(sWidth*3, sHeight*11, sWidth, sHeight); itemList.add(c70);
+		c71 = sheet.crop(sWidth*4, sHeight*11, sWidth, sHeight); itemList.add(c71);
+		c72 = sheet.crop(sWidth*5, sHeight*11, sWidth, sHeight); itemList.add(c72);
 		
 		//System.out.println("fine init()");
 	}
@@ -386,6 +386,7 @@ public class Assets implements Serializable{
 
 	//STATIC STUFF
 	public static ArrayList<BufferedImage> tileList = new ArrayList<BufferedImage>();
+	public static ArrayList<BufferedImage> itemList = new ArrayList<BufferedImage>();
 	
 	public static BufferedImage menuImage, playImage, settingImage, creditsImage;
 	
