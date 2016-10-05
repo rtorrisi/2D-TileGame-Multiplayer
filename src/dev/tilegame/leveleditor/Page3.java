@@ -15,6 +15,8 @@ import dev.tilegame.tiles_and_items.Item;
 
 public class Page3 extends JPanel implements ActionListener{
 	
+	final int pageNumber=3;
+	final int pageIndex = (pageNumber-1)*72;
 	private static final long serialVersionUID = 1L;
 	private PreviewPanel pp;
 	
@@ -119,89 +121,89 @@ public class Page3 extends JPanel implements ActionListener{
 		pp.paintItem = null;
 		pp.multiItem.clear();
 		
-		if(e.getSource() == jButton1) { pp.paintItem = new Item(Assets.c1, true); }
-		else if(e.getSource() == jButton2) { pp.paintItem = new Item(Assets.c2); }
-		else if(e.getSource() == jButton3) { pp.paintItem = new Item(Assets.c3); }
-		else if(e.getSource() == jButton4) { pp.paintItem = new Item(Assets.c4); }
-		else if(e.getSource() == jButton5) { pp.paintItem = new Item(Assets.c5); }
-		else if(e.getSource() == jButton6) { pp.paintItem = new Item(Assets.c6); }
+		if(e.getSource() == jButton1) { pp.paintItem = new Item(Assets.c1, true); pp.index=pageIndex+1; }
+		else if(e.getSource() == jButton2) { pp.paintItem = new Item(Assets.c2); pp.index=pageIndex+2;}
+		else if(e.getSource() == jButton3) { pp.paintItem = new Item(Assets.c3); pp.index=pageIndex+3;}
+		else if(e.getSource() == jButton4) { pp.paintItem = new Item(Assets.c4); pp.index=pageIndex+4;}
+		else if(e.getSource() == jButton5) { pp.paintItem = new Item(Assets.c5); pp.index=pageIndex+5;}
+		else if(e.getSource() == jButton6) { pp.paintItem = new Item(Assets.c6); pp.index=pageIndex+6;}
 		
-		else if(e.getSource() == jButton7) { pp.paintItem = new Item(Assets.c7, true); }
-		else if(e.getSource() == jButton8) { pp.paintItem = new Item(Assets.c8, true); }
-		else if(e.getSource() == jButton9) { pp.paintItem = new Item(Assets.c9, true); }
-		else if(e.getSource() == jButton10) { pp.paintItem = new Item(Assets.c10, true); }
-		else if(e.getSource() == jButton11) { pp.paintItem = new Item(Assets.c11, true); }
-		else if(e.getSource() == jButton12) { pp.paintItem = new Item(Assets.c12, true); }
+		else if(e.getSource() == jButton7) { pp.paintItem = new Item(Assets.c7, true); pp.index=pageIndex+7;}
+		else if(e.getSource() == jButton8) { pp.paintItem = new Item(Assets.c8, true); pp.index=pageIndex+8;}
+		else if(e.getSource() == jButton9) { pp.paintItem = new Item(Assets.c9, true); pp.index=pageIndex+9;}
+		else if(e.getSource() == jButton10) { pp.paintItem = new Item(Assets.c10, true); pp.index=pageIndex+10;}
+		else if(e.getSource() == jButton11) { pp.paintItem = new Item(Assets.c11, true); pp.index=pageIndex+11;}
+		else if(e.getSource() == jButton12) { pp.paintItem = new Item(Assets.c12, true); pp.index=pageIndex+12;}
 		
-		else if(e.getSource() == jButton13) { pp.paintItem = new Item(Assets.c13); }
-		else if(e.getSource() == jButton14) { pp.paintItem = new Item(Assets.c14); }
-		else if(e.getSource() == jButton15) { pp.paintItem = new Item(Assets.c15); }
-		else if(e.getSource() == jButton16) { pp.paintItem = new Item(Assets.c16); }
-		else if(e.getSource() == jButton17) { pp.paintItem = new Item(Assets.c17); }
-		else if(e.getSource() == jButton18) { pp.paintItem = new Item(Assets.c18); }
+		else if(e.getSource() == jButton13) { pp.paintItem = new Item(Assets.c13); pp.index=pageIndex+13;}
+		else if(e.getSource() == jButton14) { pp.paintItem = new Item(Assets.c14); pp.index=pageIndex+14;}
+		else if(e.getSource() == jButton15) { pp.paintItem = new Item(Assets.c15); pp.index=pageIndex+15;}
+		else if(e.getSource() == jButton16) { pp.paintItem = new Item(Assets.c16); pp.index=pageIndex+16;}
+		else if(e.getSource() == jButton17) { pp.paintItem = new Item(Assets.c17); pp.index=pageIndex+17;}
+		else if(e.getSource() == jButton18) { pp.paintItem = new Item(Assets.c18); pp.index=pageIndex+18;}
 		
-		else if(e.getSource() == jButton19) { pp.paintItem = new Item(Assets.c19, true); }
-		else if(e.getSource() == jButton20) { pp.paintItem = new Item(Assets.c20, true); }
-		else if(e.getSource() == jButton21) { pp.paintItem = new Item(Assets.c21, true); }
-		else if(e.getSource() == jButton22) { pp.paintItem = new Item(Assets.c22, true); }
-		else if(e.getSource() == jButton23) { pp.paintItem = new Item(Assets.c23, true); }
-		else if(e.getSource() == jButton24) { pp.paintItem = new Item(Assets.c24, true); }
+		else if(e.getSource() == jButton19) { pp.paintItem = new Item(Assets.c19, true); pp.index=pageIndex+19;}
+		else if(e.getSource() == jButton20) { pp.paintItem = new Item(Assets.c20, true); pp.index=pageIndex+20;}
+		else if(e.getSource() == jButton21) { pp.paintItem = new Item(Assets.c21, true); pp.index=pageIndex+21;}
+		else if(e.getSource() == jButton22) { pp.paintItem = new Item(Assets.c22, true); pp.index=pageIndex+22;}
+		else if(e.getSource() == jButton23) { pp.paintItem = new Item(Assets.c23, true); pp.index=pageIndex+23;}
+		else if(e.getSource() == jButton24) { pp.paintItem = new Item(Assets.c24, true); pp.index=pageIndex+24;}
 		
-		else if(e.getSource() == jButton25) { pp.paintItem = new Item(Assets.c25); }
-		else if(e.getSource() == jButton26) { pp.paintItem = new Item(Assets.c26); }
-		else if(e.getSource() == jButton27) { pp.paintItem = new Item(Assets.c27); }
-		else if(e.getSource() == jButton28) { pp.paintItem = new Item(Assets.c28); }
-		else if(e.getSource() == jButton29) { pp.paintItem = new Item(Assets.c29, true); }
-		else if(e.getSource() == jButton30) { pp.paintItem = new Item(Assets.c30, true); }
+		else if(e.getSource() == jButton25) { pp.paintItem = new Item(Assets.c25); pp.index=pageIndex+25;}
+		else if(e.getSource() == jButton26) { pp.paintItem = new Item(Assets.c26); pp.index=pageIndex+26;}
+		else if(e.getSource() == jButton27) { pp.paintItem = new Item(Assets.c27); pp.index=pageIndex+27;}
+		else if(e.getSource() == jButton28) { pp.paintItem = new Item(Assets.c28); pp.index=pageIndex+28;}
+		else if(e.getSource() == jButton29) { pp.paintItem = new Item(Assets.c29, true); pp.index=pageIndex+29;}
+		else if(e.getSource() == jButton30) { pp.paintItem = new Item(Assets.c30, true); pp.index=pageIndex+30;}
 		
-		else if(e.getSource() == jButton31) { pp.paintItem = new Item(Assets.c31, true); }
-		else if(e.getSource() == jButton32) { pp.paintItem = new Item(Assets.c32, true); }
-		else if(e.getSource() == jButton33) { pp.paintItem = new Item(Assets.c33, true); }
-		else if(e.getSource() == jButton34) { pp.paintItem = new Item(Assets.c34, true); }
-		else if(e.getSource() == jButton35) { pp.paintItem = new Item(Assets.c35, true); }
-		else if(e.getSource() == jButton36) { pp.paintItem = new Item(Assets.c36, true); }
+		else if(e.getSource() == jButton31) { pp.paintItem = new Item(Assets.c31, true); pp.index=pageIndex+31;}
+		else if(e.getSource() == jButton32) { pp.paintItem = new Item(Assets.c32, true); pp.index=pageIndex+32;}
+		else if(e.getSource() == jButton33) { pp.paintItem = new Item(Assets.c33, true); pp.index=pageIndex+33;}
+		else if(e.getSource() == jButton34) { pp.paintItem = new Item(Assets.c34, true); pp.index=pageIndex+34;}
+		else if(e.getSource() == jButton35) { pp.paintItem = new Item(Assets.c35, true); pp.index=pageIndex+35;}
+		else if(e.getSource() == jButton36) { pp.paintItem = new Item(Assets.c36, true); pp.index=pageIndex+36;}
 		
-		else if(e.getSource() == jButton37) { pp.paintItem = new Item(Assets.c37, true); }		
-		else if(e.getSource() == jButton38) { pp.paintItem = new Item(Assets.c38, true); }
-		else if(e.getSource() == jButton39) { pp.paintItem = new Item(Assets.c39, true); }
-		else if(e.getSource() == jButton40) { pp.paintItem = new Item(Assets.c40); }
-		else if(e.getSource() == jButton41) { pp.paintItem = new Item(Assets.c41); }
-		else if(e.getSource() == jButton42) { pp.paintItem = new Item(Assets.c42); }
+		else if(e.getSource() == jButton37) { pp.paintItem = new Item(Assets.c37, true); pp.index=pageIndex+37;}		
+		else if(e.getSource() == jButton38) { pp.paintItem = new Item(Assets.c38, true); pp.index=pageIndex+38;}
+		else if(e.getSource() == jButton39) { pp.paintItem = new Item(Assets.c39, true); pp.index=pageIndex+39;}
+		else if(e.getSource() == jButton40) { pp.paintItem = new Item(Assets.c40); pp.index=pageIndex+40;}
+		else if(e.getSource() == jButton41) { pp.paintItem = new Item(Assets.c41); pp.index=pageIndex+41;}
+		else if(e.getSource() == jButton42) { pp.paintItem = new Item(Assets.c42); pp.index=pageIndex+42;}
 		
-		else if(e.getSource() == jButton43) { pp.paintItem = new Item(Assets.c43, true); }
-		else if(e.getSource() == jButton44) { pp.paintItem = new Item(Assets.c44); }
-		else if(e.getSource() == jButton45) { pp.paintItem = new Item(Assets.c45, true); }
-		else if(e.getSource() == jButton46) { pp.paintItem = new Item(Assets.c46, true); }
-		else if(e.getSource() == jButton47) { pp.paintItem = new Item(Assets.c47, true); }
-		else if(e.getSource() == jButton48) { pp.paintItem = new Item(Assets.c48, true); }
+		else if(e.getSource() == jButton43) { pp.paintItem = new Item(Assets.c43, true); pp.index=pageIndex+43;}
+		else if(e.getSource() == jButton44) { pp.paintItem = new Item(Assets.c44); pp.index=pageIndex+44;}
+		else if(e.getSource() == jButton45) { pp.paintItem = new Item(Assets.c45, true); pp.index=pageIndex+45;}
+		else if(e.getSource() == jButton46) { pp.paintItem = new Item(Assets.c46, true); pp.index=pageIndex+46;}
+		else if(e.getSource() == jButton47) { pp.paintItem = new Item(Assets.c47, true); pp.index=pageIndex+47;}
+		else if(e.getSource() == jButton48) { pp.paintItem = new Item(Assets.c48, true); pp.index=pageIndex+48;}
 		
-		else if(e.getSource() == jButton49) { pp.paintItem = new Item(Assets.c49, true); }
-		else if(e.getSource() == jButton50) { pp.paintItem = new Item(Assets.c50, true); }
-		else if(e.getSource() == jButton51) { pp.paintItem = new Item(Assets.c51, true); }
-		else if(e.getSource() == jButton52) { pp.paintItem = new Item(Assets.c52, true); }
-		else if(e.getSource() == jButton53) { pp.paintItem = new Item(Assets.c53); }
-		else if(e.getSource() == jButton54) { pp.paintItem = new Item(Assets.c54); }
+		else if(e.getSource() == jButton49) { pp.paintItem = new Item(Assets.c49, true); pp.index=pageIndex+49;}
+		else if(e.getSource() == jButton50) { pp.paintItem = new Item(Assets.c50, true); pp.index=pageIndex+50;}
+		else if(e.getSource() == jButton51) { pp.paintItem = new Item(Assets.c51, true); pp.index=pageIndex+51;}
+		else if(e.getSource() == jButton52) { pp.paintItem = new Item(Assets.c52, true); pp.index=pageIndex+52;}
+		else if(e.getSource() == jButton53) { pp.paintItem = new Item(Assets.c53); pp.index=pageIndex+53;}
+		else if(e.getSource() == jButton54) { pp.paintItem = new Item(Assets.c54); pp.index=pageIndex+54;}
 		
-		else if(e.getSource() == jButton55) { pp.paintItem = new Item(Assets.c55, true); }
-		else if(e.getSource() == jButton56) { pp.paintItem = new Item(Assets.c56, true); }
-		else if(e.getSource() == jButton57) { pp.paintItem = new Item(Assets.c57, true); }
-		else if(e.getSource() == jButton58) { pp.paintItem = new Item(Assets.c58, true); }
-		else if(e.getSource() == jButton59) { pp.paintItem = new Item(Assets.c59, true); }
-		else if(e.getSource() == jButton60) { pp.paintItem = new Item(Assets.c60, true); }
+		else if(e.getSource() == jButton55) { pp.paintItem = new Item(Assets.c55, true); pp.index=pageIndex+55;}
+		else if(e.getSource() == jButton56) { pp.paintItem = new Item(Assets.c56, true); pp.index=pageIndex+56;}
+		else if(e.getSource() == jButton57) { pp.paintItem = new Item(Assets.c57, true); pp.index=pageIndex+57;}
+		else if(e.getSource() == jButton58) { pp.paintItem = new Item(Assets.c58, true); pp.index=pageIndex+58;}
+		else if(e.getSource() == jButton59) { pp.paintItem = new Item(Assets.c59, true); pp.index=pageIndex+59;}
+		else if(e.getSource() == jButton60) { pp.paintItem = new Item(Assets.c60, true); pp.index=pageIndex+60;}
 		
-		else if(e.getSource() == jButton61) { pp.paintItem = new Item(Assets.c61, true); }
-		else if(e.getSource() == jButton62) { pp.paintItem = new Item(Assets.c62, true); }
-		else if(e.getSource() == jButton63) { pp.paintItem = new Item(Assets.c63, true); }
-		else if(e.getSource() == jButton64) { pp.paintItem = new Item(Assets.c64, true); }
-		else if(e.getSource() == jButton65) { pp.paintItem = new Item(Assets.c65, true); }
-		else if(e.getSource() == jButton66) { pp.paintItem = new Item(Assets.c66, true); }
+		else if(e.getSource() == jButton61) { pp.paintItem = new Item(Assets.c61, true); pp.index=pageIndex+61;}
+		else if(e.getSource() == jButton62) { pp.paintItem = new Item(Assets.c62, true); pp.index=pageIndex+62;}
+		else if(e.getSource() == jButton63) { pp.paintItem = new Item(Assets.c63, true); pp.index=pageIndex+63;}
+		else if(e.getSource() == jButton64) { pp.paintItem = new Item(Assets.c64, true); pp.index=pageIndex+64;}
+		else if(e.getSource() == jButton65) { pp.paintItem = new Item(Assets.c65, true); pp.index=pageIndex+65;}
+		else if(e.getSource() == jButton66) { pp.paintItem = new Item(Assets.c66, true); pp.index=pageIndex+66;}
 		
-		else if(e.getSource() == jButton67) { pp.paintItem = new Item(Assets.c67, true); }
-		else if(e.getSource() == jButton68) { pp.paintItem = new Item(Assets.c68); }
-		else if(e.getSource() == jButton69) { pp.paintItem = new Item(Assets.c69); }
-		else if(e.getSource() == jButton70) { pp.paintItem = new Item(Assets.c70, true); }
-		else if(e.getSource() == jButton71) { pp.paintItem = new Item(Assets.c71, true); }
-		else if(e.getSource() == jButton72) { pp.paintItem = new Item(Assets.c72, true); }
+		else if(e.getSource() == jButton67) { pp.paintItem = new Item(Assets.c67, true); pp.index=pageIndex+67;}
+		else if(e.getSource() == jButton68) { pp.paintItem = new Item(Assets.c68); pp.index=pageIndex+68;}
+		else if(e.getSource() == jButton69) { pp.paintItem = new Item(Assets.c69); pp.index=pageIndex+69;}
+		else if(e.getSource() == jButton70) { pp.paintItem = new Item(Assets.c70, true); pp.index=pageIndex+70;}
+		else if(e.getSource() == jButton71) { pp.paintItem = new Item(Assets.c71, true); pp.index=pageIndex+71;}
+		else if(e.getSource() == jButton72) { pp.paintItem = new Item(Assets.c72, true); pp.index=pageIndex+72;}
 	}
 	
 	private void initListener() {	
