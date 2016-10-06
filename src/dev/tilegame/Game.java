@@ -61,7 +61,7 @@ public class Game implements Runnable, Serializable {
 	//NET
 	private static GameClient_UDP socketClient=null;
 	private static GameServer_UDP socketServer=null;
-	private int server=0; 
+	private static boolean server=false; 
 	private String serverPublicAddress="";
 	private String serverAddress="";
 	private int serverPort=1331;
@@ -148,8 +148,8 @@ public class Game implements Runnable, Serializable {
 		
 		//### NETWORK ############################################
 		
-		server = JOptionPane.showConfirmDialog(null, "Do you want to host other players?") + 1;
-		if(server==1) {
+		server = (JOptionPane.showConfirmDialog(null, "Do you want to host other players?")==0?true:false);
+		if(Game.server) {
 			try {
 				URL url_name = new URL("http://bot.whatismyipaddress.com");
 				BufferedReader sc = new BufferedReader(new InputStreamReader(url_name.openStream()));
@@ -227,9 +227,10 @@ public class Game implements Runnable, Serializable {
 	public GameCamera getCamera() { return camera; }
 	public static Player getPlayer() { return Game.player; }
 	public static GameClient_UDP getClient() { return Game.socketClient; }
+	public static GameServer_UDP getServer() { return Game.socketServer; }
 	public String getServerPublicAddress() { return serverPublicAddress; }
 	public String getServerAddress() { return serverAddress; }
 	public int getServerPort() { return serverPort; }
-	public int isServer() { return server; }
+	public static boolean isServer() { return Game.server; }
 	
 }

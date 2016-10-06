@@ -1,6 +1,9 @@
 package dev.tilegame.net;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -8,8 +11,10 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.tilegame.Game;
 import dev.tilegame.Handler;
 import dev.tilegame.entities.creatures.PlayerMP;
+import dev.tilegame.net.bot.TelegramBot;
 import dev.tilegame.net.packets.Packet;
 import dev.tilegame.net.packets.Packet.PacketTypes;
 import dev.tilegame.net.packets.Packet00Login;
@@ -23,15 +28,41 @@ import dev.tilegame.tiles_and_items.TileMP;
 
 public class GameServer_UDP extends Thread {
 	
+	private Game game;
 	private Handler handler;
 	private DatagramSocket socket;
+	
 	private List<PlayerMP> connectedPlayers = new ArrayList<PlayerMP>();
 	private List<TileMP> multiplayerTile = new ArrayList<TileMP>();
 	private List<ItemMP> multiplayerItem = new ArrayList<ItemMP>();
 	
+	//Telegram
+	private TelegramBot myBot;
+	private static String BOT_TOKEN = "Here your Bot Token";
+	private static String BOT_NAME = "Here your Bot Name"; 
+	private static String BOT_CHATID = "Here your default chatId";
+	
 	public GameServer_UDP(Handler handler, int serverPort) {
 		this.handler = handler;
-		try { socket = new DatagramSocket(serverPort); } catch (SocketException e) { e.printStackTrace(); }
+		this.game = handler.getGame();
+		
+		try { socket = new DatagramSocket(serverPort);
+		} catch (SocketException e) { e.printStackTrace(); }
+		
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("telegram_bot.conf"));
+			String[] dataArray = ((String)in.readObject()).split(",");
+			BOT_TOKEN = dataArray[0];
+			BOT_NAME = dataArray[1];
+			BOT_CHATID = dataArray[2];
+			in.close();
+
+			myBot = new TelegramBot(handler, BOT_NAME, BOT_TOKEN, BOT_CHATID);
+			myBot.sendMess("> Server ON\nAddress: "+game.getServerPublicAddress()+"\nPort: "+game.getServerPort(), BOT_CHATID);
+		} catch (FileNotFoundException e1) {
+		} catch (IOException e1) {
+		} catch (ClassNotFoundException e) {}
+		
 	}
 	
 	public void run() {
@@ -64,8 +95,8 @@ public class GameServer_UDP extends Thread {
 			
 		case LOGIN:
 			packet = new Packet00Login(data);
-			log = "["+address.getHostAddress()+":"+port+"] Server info: "+((Packet00Login)packet).getUsername()+" has connected to server...";
-			System.out.println(log);
+			log = "> "+((Packet00Login)packet).getUsername()+" has joined the game.";
+			myBot.sendMess(log, BOT_CHATID);
 			
 			PlayerMP player = new PlayerMP(2, ((Packet00Login)packet).getUsername(), handler, 10, 10, address, port);
 			addConnection(player, (Packet00Login)packet);
@@ -110,8 +141,8 @@ public class GameServer_UDP extends Thread {
 			
 		case DISCONNECT:
 			packet = new Packet01Disconnect(data);
-			log = "["+address.getHostAddress()+":"+port+"]"+" Server info: "+((Packet01Disconnect)packet).getUsername()+" has left server... ";
-			System.out.println(log);
+			log = "> "+((Packet01Disconnect)packet).getUsername()+" has left the game.";
+			myBot.sendMess(log, BOT_CHATID);
 			removeConnection((Packet01Disconnect)packet);
 			break;
 		}
@@ -231,4 +262,8 @@ public class GameServer_UDP extends Thread {
 		}
 		return false;
 	}
+	
+	public TelegramBot getTelegramBot() { return myBot; }
+	public static String getBOT_CHATID() { return GameServer_UDP.BOT_CHATID; }
+	public List<PlayerMP> getConnectedPlayers() { return connectedPlayers; }
 }

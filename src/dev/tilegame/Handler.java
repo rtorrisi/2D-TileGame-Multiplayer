@@ -66,7 +66,7 @@ public class Handler {
 			}
 		}
 		
-		System.out.println("World Saved");
+		System.out.println("world saved");
 	}
 	
 	public void loadWorld() {
@@ -101,6 +101,6 @@ public class Handler {
 			}
 		}
 		
-		System.out.println("World Loaded");
+		System.out.println("world loaded");
 	}
 }

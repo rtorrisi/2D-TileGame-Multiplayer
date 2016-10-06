@@ -111,19 +111,10 @@ public class GameClient_UDP extends Thread {
 	}
 
 	private void handleLogin(Packet00Login packet, InetAddress address, int port) {
-		String log = packet.getUsername() + " has joined the game...";
-        System.out.println(log);
-		
         PlayerMP player = new PlayerMP(2, packet.getUsername(), handler, packet.getX(), packet.getY(), address, port);
         handler.getWorld().entityManager.addEntity(player);
     }
-	
-	private void handleLogout(Packet01Disconnect packet) {
-		String log = packet.getUsername()+" has left the game... ";
-		System.out.println(log);
-		
-		handler.getWorld().entityManager.removePlayerMP(packet.getUsername());
-	}
+	private void handleLogout(Packet01Disconnect packet) { handler.getWorld().entityManager.removePlayerMP(packet.getUsername()); }
 	
 	private void handleTile(Packet11Tile packet) {
 		int tileIndex = packet.getTileIndex();
