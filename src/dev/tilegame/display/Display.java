@@ -63,7 +63,7 @@ public class Display implements WindowListener{
 			Packet01Disconnect packet = new Packet01Disconnect(Game.getPlayer().getUsername());
 			packet.writeData(Game.getClient());
 			
-			if(Game.isServer()) Game.getServer().getTelegramBot().sendMess("> Server OFF", GameServer_UDP.getChatId());
+			if(Game.isServer()) Game.getServer().getTelegramBot().sendMess("> Server OFF", GameServer_UDP.getBOT_CHATID());
 		}
 	}
 	public void windowDeactivated(WindowEvent e) {}

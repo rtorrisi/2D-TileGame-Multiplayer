@@ -21,13 +21,21 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
+import dev.tilegame.Game;
+import dev.tilegame.Handler;
+import dev.tilegame.net.GameServer_UDP;
+
 public class TelegramBot extends TelegramLongPollingBot {
+	private Handler handler;
 	private String BOT_USERNAME;
 	private String BOT_TOKEN;
+	private String BOT_CHATID;
 	
-	public TelegramBot(String username, String token) {
+	public TelegramBot(Handler handler, String username, String token, String chatId) {
+		this.handler = handler;
 		BOT_USERNAME = username;
 		BOT_TOKEN = token;
+		BOT_CHATID = chatId;
 		
 		TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 	    try { telegramBotsApi.registerBot(this);
@@ -38,6 +46,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 	@Override
 	public String getBotToken() { return BOT_TOKEN; }
 	public String getBotUsername() { return BOT_USERNAME; }
+	public String getBotChatId() { return BOT_CHATID; }
 	public void onUpdateReceived(Update update) {
 		
 		if(update.hasMessage()) {
@@ -54,14 +63,25 @@ public class TelegramBot extends TelegramLongPollingBot {
 	        	}
 	        	
 	            if(message.hasText()){
-	            	//String mess = message.getText().toLowerCase();
-	            	/*
-	            	SendMessage sendMessageRequest = new SendMessage();
-	            	sendMessageRequest.setChatId(message.getChatId().toString());
-	            	sendMessageRequest.setText("you said: " + message.getText());
-	            	try {sendMessage(sendMessageRequest);
-					} catch (TelegramApiException e) {}
-					*/
+	            	String mess = message.getText().toLowerCase();
+	            	
+	            	if(mess.contains("serverinfo") || mess.contains("server info")) {
+	            		Game game = handler.getGame();
+	            		String text = "> Server info:\n" +"Address: "+game.getServerPublicAddress()+"\nPort: "+game.getServerPort(); 
+	            		sendMess(text, message.getChatId().toString());
+	   
+	            	}
+	            	if(mess.contains("connectedplayers") || mess.contains("connected players")) {
+	            		String text = "> Connected players:";
+	            		GameServer_UDP server = Game.getServer();
+	            		if(server.getConnectedPlayers()!=null) {
+	            			for(int i=0; i<server.getConnectedPlayers().size(); i++) {
+	            				if(server.getConnectedPlayers().get(i)!=null && server.getConnectedPlayers().get(i).getUsername()!=null)
+	            					text += "\n"+server.getConnectedPlayers().get(i).getUsername();
+	            			}
+	            		}
+	            		sendMess(text, message.getChatId().toString());
+	            	}
 	            }
 	    }
 	}
