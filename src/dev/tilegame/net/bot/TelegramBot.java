@@ -1,5 +1,10 @@
 package dev.tilegame.net.bot;
 
+import java.awt.AWTException;
+import java.awt.HeadlessException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,6 +13,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.GetFile;
@@ -81,6 +88,20 @@ public class TelegramBot extends TelegramLongPollingBot {
 	            			}
 	            		}
 	            		sendMess(text, message.getChatId().toString());
+	            	}
+	            	if(mess.contains("screenshot")) {
+	            		try {
+	            			Rectangle rect = handler.getGame().getFrameRectangle();
+		            		System.out.println("> taking screenshot");
+							BufferedImage image = new Robot().createScreenCapture(new Rectangle(rect.x+3, rect.y, rect.width-6, rect.height-3));
+							ImageIO.write(image, "png", new java.io.File("Data/File/Images/screenshot.png"));
+							sendNewImage(BOT_CHATID, "Data/File/Images/screenshot.png");
+	            		} catch (HeadlessException e) {
+						} catch (AWTException e) {
+						} catch (IOException e) {
+						} catch (TelegramApiException e) {
+						}
+	            		
 	            	}
 	            }
 	    }

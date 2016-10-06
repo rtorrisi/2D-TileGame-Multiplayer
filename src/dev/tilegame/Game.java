@@ -1,5 +1,6 @@
  package dev.tilegame;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -219,6 +220,7 @@ public class Game implements Runnable, Serializable {
 	}
 	
 	public Display getDisplay() { return display; }
+	public Rectangle getFrameRectangle() { return display.getFrame().getBounds(); }
 	public int getDisplayWidth() { return displayWidth; }
 	public int getDisplayHeight() { return displayHeight; }
 	public void setValidUsername(String str) { validUsername = str; }
