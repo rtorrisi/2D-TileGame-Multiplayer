@@ -41,7 +41,7 @@ public class MenuState extends State {
 		g.setColor(Color.white);
 		g.drawString("Nickname :    "+Game.getPlayer().getUsername(), 500-offsetX, 40);
 		
-		if(handler.getGame().isServer()==1) {
+		if(Game.isServer()) {
 			g.drawString("Server Public Ip :    "+handler.getGame().getServerPublicAddress()+" : "+handler.getGame().getServerPort(), 471-offsetX, 60);
 			g.drawString("Server Local Ip :    "+handler.getGame().getServerAddress()+" : "+handler.getGame().getServerPort(), 475-offsetX, 80);
 		}
