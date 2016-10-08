@@ -7,6 +7,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import dev.tilegame.Game;
 import dev.tilegame.net.GameServer_UDP;
@@ -47,6 +49,7 @@ public class Display implements WindowListener{
 		this.displayWidth = width;
 		this.displayHeight = height;
 		
+		setLookAndFeels("Nimbus");
 		createDisplay();
 	}
 	
@@ -63,7 +66,8 @@ public class Display implements WindowListener{
 			Packet01Disconnect packet = new Packet01Disconnect(Game.getPlayer().getUsername());
 			packet.writeData(Game.getClient());
 			
-			if(Game.isServer()) Game.getServer().getTelegramBot().sendMess("> Server OFF", GameServer_UDP.getBOT_CHATID());
+			if(Game.isServer())
+				Game.getServer().getTelegramBot().sendMess("> Server OFF", GameServer_UDP.getBOT_CHATID());
 		}
 	}
 	public void windowDeactivated(WindowEvent e) {}
@@ -71,4 +75,15 @@ public class Display implements WindowListener{
 	public void windowIconified(WindowEvent e) {}
 	public void windowOpened(WindowEvent e) {}
 	
+	private void setLookAndFeels(String look) {
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if (look.equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+			        break; } }
+		}
+		catch (Exception e) {
+			try { UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); } catch (Exception e2) {}
+		}
+	}
 }
