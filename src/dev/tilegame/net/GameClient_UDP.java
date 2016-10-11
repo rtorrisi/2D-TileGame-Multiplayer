@@ -7,8 +7,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import javax.swing.JOptionPane;
-
 import dev.tilegame.Game;
 import dev.tilegame.Handler;
 import dev.tilegame.entities.creatures.PlayerMP;
@@ -19,7 +17,6 @@ import dev.tilegame.net.packets.Packet.PacketTypes;
 import dev.tilegame.net.packets.Packet00Login;
 import dev.tilegame.net.packets.Packet01Disconnect;
 import dev.tilegame.net.packets.Packet02Move;
-import dev.tilegame.net.packets.Packet10CheckName;
 import dev.tilegame.net.packets.Packet11Tile;
 import dev.tilegame.net.packets.Packet12Item;
 import dev.tilegame.tiles_and_items.Item;
@@ -80,13 +77,6 @@ public class GameClient_UDP extends Thread {
 		case LOGIN: //Quando si collega un nuovo giocatore al server ai client arriva:
 			packet = new Packet00Login(data);
 			handleLogin((Packet00Login) packet, address, port);
-			break;
-			
-		case CHECKNAME:
-			packet = new Packet10CheckName(data);
-			String mess = ((Packet10CheckName)packet).getMessage();
-			handler.getGame().setValidUsername(mess);
-			if(mess.equalsIgnoreCase("used")) JOptionPane.showMessageDialog(null, "Username already used from another player");
 			break;
 		
 		case TILE:

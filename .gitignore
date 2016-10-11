@@ -1,3 +1,5 @@
 *.conf
 *.class
+*.sqlite
+*.db
 Data/File/Images/screenshot.png

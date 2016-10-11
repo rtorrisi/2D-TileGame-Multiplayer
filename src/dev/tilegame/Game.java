@@ -1,4 +1,5 @@
  package dev.tilegame;
+ 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
@@ -10,9 +11,9 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-
 import javax.swing.JOptionPane;
 
+import dev.tilegame.db.Database;
 import dev.tilegame.display.Display;
 import dev.tilegame.entities.creatures.Player;
 import dev.tilegame.entities.creatures.PlayerMP;
@@ -23,7 +24,6 @@ import dev.tilegame.input.MouseManager;
 import dev.tilegame.net.GameClient_UDP;
 import dev.tilegame.net.GameServer_UDP;
 import dev.tilegame.net.packets.Packet00Login;
-import dev.tilegame.net.packets.Packet10CheckName;
 import dev.tilegame.states.GameState;
 import dev.tilegame.states.LoadingState;
 import dev.tilegame.states.MenuState;
@@ -31,8 +31,10 @@ import dev.tilegame.states.State;
 
 public class Game implements Runnable, Serializable {
 	private static final long serialVersionUID = 1L;
+	public static Database database = new Database();
 	public static final int grid=32;
 	public static final int worldSize=50;
+
 	
 	//Window info
 	private Display display;
@@ -63,13 +65,15 @@ public class Game implements Runnable, Serializable {
 	private static GameClient_UDP socketClient=null;
 	private static GameServer_UDP socketServer=null;
 	private static boolean server=false; 
+	private String nickname;
 	private String serverPublicAddress="";
 	private String serverAddress="";
 	private int serverPort=1331;
-	private String validUsername="false";
+	
 	
 	//COSTRUCTOR
-	public Game(String title, int displayWidth, int displayHeight){
+	public Game(String nickname, String title, int displayWidth, int displayHeight){
+		this.nickname = nickname;
 		this.title = title;
 		this.displayWidth = displayWidth;
 		this.displayHeight = displayHeight;
@@ -172,16 +176,7 @@ public class Game implements Runnable, Serializable {
 		Game.socketClient.start();
 		
 		//Creazione e aggiunta del proprio Player
-		Packet10CheckName checkNamePacket;
-		String username = "";
-		do {
-			username = JOptionPane.showInputDialog("Please enter a username (max 8 letters)");
-			checkNamePacket = new Packet10CheckName(username);
-			checkNamePacket.writeData(Game.socketClient);
-			try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
-		}while(username.length()>8 || validUsername.equalsIgnoreCase("used"));
-		
-		player = new PlayerMP(1, username, handler, 400, 400, null, -1);		
+		player = new PlayerMP(1, nickname, handler, 400, 400, null, -1);		
 		handler.getWorld().entityManager.addEntity(player);
 		
 		//Creazione pacchetto login
@@ -223,7 +218,6 @@ public class Game implements Runnable, Serializable {
 	public Rectangle getFrameRectangle() { return display.getFrame().getBounds(); }
 	public int getDisplayWidth() { return displayWidth; }
 	public int getDisplayHeight() { return displayHeight; }
-	public void setValidUsername(String str) { validUsername = str; }
 	public KeyManager getKeyManager() { return keyManager; }
 	public MouseManager getMouseManager() { return mouseManager; }
 	public GameCamera getCamera() { return camera; }

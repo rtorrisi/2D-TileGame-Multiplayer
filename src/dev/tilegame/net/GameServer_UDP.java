@@ -20,7 +20,6 @@ import dev.tilegame.net.packets.Packet.PacketTypes;
 import dev.tilegame.net.packets.Packet00Login;
 import dev.tilegame.net.packets.Packet01Disconnect;
 import dev.tilegame.net.packets.Packet02Move;
-import dev.tilegame.net.packets.Packet10CheckName;
 import dev.tilegame.net.packets.Packet11Tile;
 import dev.tilegame.net.packets.Packet12Item;
 import dev.tilegame.tiles_and_items.ItemMP;
@@ -116,16 +115,6 @@ public class GameServer_UDP extends Thread {
 			}
 			
 			break;
-			
-		case CHECKNAME:
-			packet = new Packet10CheckName(data);
-			
-			boolean used = usernameIsUsed(((Packet10CheckName)packet).getMessage());
-			if(used) ((Packet10CheckName)packet).setMessage("used");
-			else ((Packet10CheckName)packet).setMessage("notused");
-			sendData(packet.getData(), address, port);
-			break;
-		
 			
 		case TILE:
 			packet = new Packet11Tile(data);
@@ -254,13 +243,6 @@ public class GameServer_UDP extends Thread {
 		for(PlayerMP p : connectedPlayers) {
 			sendData(data, p.ipClient, p.portClient);
 		}
-	}
-	
-	private boolean usernameIsUsed(String usr) {
-		for (PlayerMP p : connectedPlayers) {
-			if(p.getUsername().equalsIgnoreCase(usr)) return true;
-		}
-		return false;
 	}
 	
 	public TelegramBot getTelegramBot() { return myBot; }

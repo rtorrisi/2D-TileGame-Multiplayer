@@ -1,8 +1,22 @@
 package dev.tilegame.db.signup_login;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import dev.tilegame.Game;
 
 public class LogInForm extends JPanel {
 	
@@ -14,8 +28,8 @@ public class LogInForm extends JPanel {
 		setBackground(new java.awt.Color(36, 51, 60));
 		
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        usernameField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
@@ -29,25 +43,25 @@ public class LogInForm extends JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome Back!");
 
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setToolTipText("");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(26, 177, 136), 2));
-        jTextField1.setCaretColor(new java.awt.Color(255, 255, 255));
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextField1.setOpaque(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        usernameField.setForeground(new java.awt.Color(255, 255, 255));
+        usernameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        usernameField.setToolTipText("");
+        usernameField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(26, 177, 136), 2));
+        usernameField.setCaretColor(new java.awt.Color(255, 255, 255));
+        usernameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        usernameField.setOpaque(false);
+        usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameFieldActionPerformed(evt);
             }
         });
 
-        jPasswordField1.setBackground(new java.awt.Color(0, 0, 0));
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(26, 177, 136), 2));
-        jPasswordField1.setCaretColor(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setOpaque(false);
+        passwordField.setBackground(new java.awt.Color(0, 0, 0));
+        passwordField.setForeground(new java.awt.Color(255, 255, 255));
+        passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passwordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(26, 177, 136), 2));
+        passwordField.setCaretColor(new java.awt.Color(255, 255, 255));
+        passwordField.setOpaque(false);
 
         jCheckBox1.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,17 +127,12 @@ public class LogInForm extends JPanel {
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
         jButton4.setOpaque(true);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel_Image);
-        jPanel_Image.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jButton4.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent evt) { LOGIN_ActionPerformed(); }
+        		}
+        );    
+        
 
         javax.swing.GroupLayout jPanelLogInLayout = new javax.swing.GroupLayout(this);
         setLayout(jPanelLogInLayout);
@@ -150,8 +159,8 @@ public class LogInForm extends JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLogInLayout.createSequentialGroup()
                         .addGroup(jPanelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jCheckBox2)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField1)
+                            .addComponent(usernameField)
+                            .addComponent(passwordField)
                             .addComponent(jCheckBox1)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,11 +183,11 @@ public class LogInForm extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,6 +198,14 @@ public class LogInForm extends JPanel {
         );
 
         jPanelLogInLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2});
+        
+        try {
+			Image image = ImageIO.read(new File("Data/File/Images/profile.jpg")).getScaledInstance(100, 100, 0);
+			JLabel picLabel = new JLabel(new ImageIcon(image));
+			jPanel_Image.add(picLabel);
+			jPanel_Image.repaint();
+        } catch (IOException e) {}
+        
 	}            
                                 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,10 +215,35 @@ public class LogInForm extends JPanel {
 		topFrame.pack();
 		topFrame.repaint();
     }
+
+    
+    private void LOGIN_ActionPerformed() {                    
+    	
+    	Connection conn = Game.database.getConnection();
+    	PreparedStatement ps;
+    	
+    	try {
+			ps = conn.prepareStatement("SELECT `nickname`, `password` FROM `users` WHERE `nickname` = ? AND `password` = ?");
+	    	ps.setString(1, usernameField.getText());
+	    	ps.setString(2, String.valueOf(passwordField.getPassword()));
+	    	
+	    	ResultSet result = ps.executeQuery();
+	    	if(result.next()) {
+	    		System.out.println("You have been successfully logged in");
+	    		SwingUtilities.getWindowAncestor(this).dispose();
+	    		Game game = new Game(result.getString("nickname"), "Shareland", 640, 360);
+	    		game.start();
+	    	}
+	    	else System.out.println("Wrong Nickname or Password");
+		} catch (SQLException e) {}
+  }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {}        
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {}                                          
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {}                                          
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {}
+    
+    public JPanel getJPanelImage() { return jPanel_Image; }
     
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton jButton1;
@@ -213,7 +255,7 @@ public class LogInForm extends JPanel {
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel4;
 	private javax.swing.JPanel jPanel_Image;
-	private javax.swing.JPasswordField jPasswordField1;
-	private javax.swing.JTextField jTextField1;
+	private javax.swing.JPasswordField passwordField;
+	private javax.swing.JTextField usernameField;
      
 }
