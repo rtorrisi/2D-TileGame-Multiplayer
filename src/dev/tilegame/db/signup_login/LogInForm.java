@@ -2,8 +2,11 @@ package dev.tilegame.db.signup_login;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,12 +18,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+import javax.swing.Timer;
 import dev.tilegame.Game;
+import dev.tilegame.db.Database;
 
 public class LogInForm extends JPanel {
 	
+	private Database database;
+	
 	public LogInForm() {
+		database = Game.database;
 		initComponents();
 	}
 	
@@ -30,8 +37,7 @@ public class LogInForm extends JPanel {
         jLabel1 = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        showPass_Box = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -39,6 +45,17 @@ public class LogInForm extends JPanel {
         jButton4 = new javax.swing.JButton();
         jPanel_Image = new javax.swing.JPanel();
 	
+        timer1 = new Timer(30, new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+			if(count++>30) {
+				timer1.stop();
+        		jLabel1.setText("Welcome Back!");
+			}
+        	}
+		});
+        
+        //timer2
+        
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome Back!");
@@ -50,37 +67,34 @@ public class LogInForm extends JPanel {
         usernameField.setCaretColor(new java.awt.Color(255, 255, 255));
         usernameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         usernameField.setOpaque(false);
-        usernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
-            }
-        });
-
+        usernameField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+				try {
+					checkProfilePicture();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			public void keyPressed(KeyEvent e) {}
+		});
+        
         passwordField.setBackground(new java.awt.Color(0, 0, 0));
         passwordField.setForeground(new java.awt.Color(255, 255, 255));
         passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         passwordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(26, 177, 136), 2));
         passwordField.setCaretColor(new java.awt.Color(255, 255, 255));
         passwordField.setOpaque(false);
+        passwordField.setEchoChar('*');
 
-        jCheckBox1.setBackground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Show password");
-        jCheckBox1.setBorder(null);
-        jCheckBox1.setOpaque(false);
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        showPass_Box.setBackground(new java.awt.Color(0, 0, 0));
+        showPass_Box.setForeground(new java.awt.Color(255, 255, 255));
+        showPass_Box.setText("Show password");
+        showPass_Box.setBorder(null);
+        showPass_Box.setOpaque(false);
+        showPass_Box.addActionListener(new ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("Remember my password");
-        jCheckBox2.setBorder(null);
-        jCheckBox2.setOpaque(false);
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                showPass_BoxActionPerformed(evt);
             }
         });
 
@@ -112,11 +126,6 @@ public class LogInForm extends JPanel {
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
         jButton2.setOpaque(true);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jButton4.setBackground(new java.awt.Color(26, 177, 136));
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -158,10 +167,9 @@ public class LogInForm extends JPanel {
                         .addGap(171, 171, 171))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLogInLayout.createSequentialGroup()
                         .addGroup(jPanelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jCheckBox2)
                             .addComponent(usernameField)
                             .addComponent(passwordField)
-                            .addComponent(jCheckBox1)
+                            .addComponent(showPass_Box)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(75, 75, 75))))
@@ -189,9 +197,7 @@ public class LogInForm extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
+                .addComponent(showPass_Box)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -200,8 +206,8 @@ public class LogInForm extends JPanel {
         jPanelLogInLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2});
         
         try {
-			Image image = ImageIO.read(new File("Data/File/Images/profile.jpg")).getScaledInstance(100, 100, 0);
-			JLabel picLabel = new JLabel(new ImageIcon(image));
+			Image image = ImageIO.read(new File("Data/File/Images/profile.jpg"));
+			JLabel picLabel = new JLabel(new ImageIcon(image.getScaledInstance(100, 100, 0)));
 			jPanel_Image.add(picLabel);
 			jPanel_Image.repaint();
         } catch (IOException e) {}
@@ -219,7 +225,7 @@ public class LogInForm extends JPanel {
     
     private void LOGIN_ActionPerformed() {                    
     	
-    	Connection conn = Game.database.getConnection();
+    	Connection conn = database.getConnection();
     	PreparedStatement ps;
     	
     	try {
@@ -234,14 +240,45 @@ public class LogInForm extends JPanel {
 	    		Game game = new Game(result.getString("nickname"), "Shareland", 640, 360);
 	    		game.start();
 	    	}
-	    	else System.out.println("Wrong Nickname or Password");
+	    	else {
+	    		jLabel1.setText("Login Failed!  ");
+	    		count=0;
+	    		timer1.start();
+	    	}
 		} catch (SQLException e) {}
-  }
+    }
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {}        
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {}                                          
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {}                                          
-    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void showPass_BoxActionPerformed(ActionEvent evt) {                                           
+    	passwordField.setEchoChar( showPass_Box.isSelected() ? (char)0 : '*');
+    }
+    
+    private void checkProfilePicture() throws IOException {
+    	Connection conn = database.getConnection();
+    	PreparedStatement ps;
+    	
+    	try {
+			ps = conn.prepareStatement("SELECT picture FROM `users` WHERE `nickname` = ?");
+	    	ps.setString(1, usernameField.getText());
+	    	
+	    	ResultSet result = ps.executeQuery();
+	    	if(result.next()) {
+	    		try {
+	 	    		InputStream is = result.getBinaryStream(1);
+	    			Image image = ImageIO.read(is);
+	    			((JLabel)jPanel_Image.getComponent(0)).setIcon(new ImageIcon(image.getScaledInstance(100, 100, 0)));
+	    			jPanel_Image.repaint();
+	    		} catch (IOException e) {}
+	    	}
+	    	
+	    	else {
+	    		try {
+	    			Image image = ImageIO.read(new File("Data/File/Images/profile.jpg"));
+	    			((JLabel)jPanel_Image.getComponent(0)).setIcon(new ImageIcon(image.getScaledInstance(100, 100, 0)));
+	    			jPanel_Image.repaint();
+	            } catch (IOException e) {}
+	    	}
+		} catch (SQLException e) { e.printStackTrace();}
+    }
     
     public JPanel getJPanelImage() { return jPanel_Image; }
     
@@ -249,13 +286,14 @@ public class LogInForm extends JPanel {
 	private javax.swing.JButton jButton1;
 	private javax.swing.JButton jButton2;	
 	private javax.swing.JButton jButton4;
-	private javax.swing.JCheckBox jCheckBox1;
-	private javax.swing.JCheckBox jCheckBox2;
+	private javax.swing.JCheckBox showPass_Box;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel4;
 	private javax.swing.JPanel jPanel_Image;
 	private javax.swing.JPasswordField passwordField;
 	private javax.swing.JTextField usernameField;
+	private Timer timer1;
+	private int count=0;
      
 }

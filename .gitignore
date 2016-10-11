@@ -2,4 +2,5 @@
 *.class
 *.sqlite
 *.db
+*.jpg
 Data/File/Images/screenshot.png
