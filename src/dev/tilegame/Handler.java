@@ -66,11 +66,9 @@ public class Handler {
 			}
 		}
 		
-		System.out.println("world saved");
 	}
 	
 	public void loadWorld() {
-		//System.out.println("Loading World");
 		world.entityManager.getEntities().clear();		
 		
 		for(int i=0; i<world.getWorldSize(); i++) {
@@ -100,7 +98,5 @@ public class Handler {
 				}
 			}
 		}
-		
-		System.out.println("world loaded");
 	}
 }

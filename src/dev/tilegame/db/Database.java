@@ -19,7 +19,6 @@ public class Database {
 	public Database() {
 		conn = connect();
 		stat = createStatement();
-		updatePicture("Helias", "Data/File/Images/Helias.jpg");
 	}
 	
 	public Connection connect() {
@@ -82,55 +81,3 @@ public class Database {
 	public Connection getConnection() { return conn; }
 	public Statement getStatement() { return stat; }
 }
-/*
-Connection connection = null;
-//ResultSet resultSet = null;
-PreparedStatement ps = null;
-String file = "C:\\Fingerprint\\histoImg_med.png";
-Properties prop = new Properties();
-int s = 0;
-byte[] person_image = null;
-File image = new File(file);
-FileInputStream fis = new FileInputStream(image);
-ByteArrayOutputStream bos = new ByteArrayOutputStream();
-byte[] buf = new byte[1024];
-
-try {
-    for (int readNum; (readNum = fis.read(buf)) != -1;)
-    {
-        bos.write(buf, 0, readNum);
-        //no doubt here is 0
-        /*Writes len bytes from the specified byte array starting at offset
-        off to this byte array output stream.
-        System.out.println("read " + readNum + " bytes,");
-    }
-} catch (IOException ex) {
-    System.err.println(ex.getMessage());
-}
-person_image = bos.toByteArray();
-
-try {
-    prop.load(new FileInputStream("C:\\dbconfig.properties"));  
-    Class.forName(prop.getProperty("driver"));
-    connection = DriverManager.getConnection(prop.getProperty("url"));
-
-    ps = connection.prepareStatement("INSERT INTO epmc_tbl_test_img (hhld_photo) VALUES (?)");
-    ps.setBytes(1, person_image);
-    s = ps.executeUpdate();
-    if (s > 0)
-    {
-        System.out.println("Image Uploaded");
-    }
-    ps.close();
-} catch (Exception e) {
-    e.printStackTrace();
-} finally {
-    try {
-        ps.close();
-        connection.close();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-}
-*/

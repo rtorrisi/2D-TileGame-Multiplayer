@@ -11,7 +11,6 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import dev.tilegame.Game;
-import dev.tilegame.net.GameServer_UDP;
 import dev.tilegame.net.packets.Packet01Disconnect;
 
 public class Display implements WindowListener{
@@ -65,9 +64,6 @@ public class Display implements WindowListener{
 		if(Game.getPlayer()!=null) {
 			Packet01Disconnect packet = new Packet01Disconnect(Game.getPlayer().getUsername());
 			packet.writeData(Game.getClient());
-			
-			if(Game.isServer())
-				Game.getServer().getTelegramBot().sendMess("> Server OFF", GameServer_UDP.getBOT_CHATID());
 		}
 	}
 	public void windowDeactivated(WindowEvent e) {}

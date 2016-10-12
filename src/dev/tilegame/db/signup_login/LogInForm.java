@@ -24,6 +24,7 @@ import dev.tilegame.db.Database;
 
 public class LogInForm extends JPanel {
 	
+	private Game game;
 	private Database database;
 	
 	public LogInForm() {
@@ -237,7 +238,7 @@ public class LogInForm extends JPanel {
 	    	if(result.next()) {
 	    		System.out.println("You have been successfully logged in");
 	    		SwingUtilities.getWindowAncestor(this).dispose();
-	    		Game game = new Game(result.getString("nickname"), "Shareland", 640, 360);
+	    		game.setNickname(result.getString("nickname"));
 	    		game.start();
 	    	}
 	    	else {
@@ -281,6 +282,7 @@ public class LogInForm extends JPanel {
     }
     
     public JPanel getJPanelImage() { return jPanel_Image; }
+    public void setGame(Game game) { this.game=game; }
     
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton jButton1;

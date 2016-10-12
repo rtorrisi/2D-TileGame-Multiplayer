@@ -12,7 +12,6 @@ public class Assets implements Serializable{
 	private static final int sWidth=Game.grid, sHeight=Game.grid;
 	
 	public static void init(){
-		//System.out.println("inizio init()");
 		
 		menuImage = ImageLoader.loadImage("/textures/menu.png");
 		playImage = ImageLoader.loadImage("/textures/menu_play.png");
@@ -376,8 +375,6 @@ public class Assets implements Serializable{
 		c70 = sheet.crop(sWidth*3, sHeight*11, sWidth, sHeight); itemList.add(c70);
 		c71 = sheet.crop(sWidth*4, sHeight*11, sWidth, sHeight); itemList.add(c71);
 		c72 = sheet.crop(sWidth*5, sHeight*11, sWidth, sHeight); itemList.add(c72);
-		
-		//System.out.println("fine init()");
 	}
 	
 	public static int getWidth() { return sWidth; }

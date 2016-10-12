@@ -37,8 +37,10 @@ public class GameClient_UDP extends Thread {
 		try {
 			this.serverIp = InetAddress.getByName(address);
 			this.socket = new DatagramSocket();
+			start();
 		}
-		catch (SocketException e) {e.printStackTrace();} catch (UnknownHostException e) {e.printStackTrace();}
+		catch (SocketException e) {}
+		catch (UnknownHostException e) {}
 	}
 
 	public void run() {

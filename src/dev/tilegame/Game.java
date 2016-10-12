@@ -3,17 +3,10 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.UnknownHostException;
-import javax.swing.JOptionPane;
 
 import dev.tilegame.db.Database;
+import dev.tilegame.db.signup_login.SignUpLogInFrame;
 import dev.tilegame.display.Display;
 import dev.tilegame.entities.creatures.Player;
 import dev.tilegame.entities.creatures.PlayerMP;
@@ -22,7 +15,6 @@ import dev.tilegame.gfx.GameCamera;
 import dev.tilegame.input.KeyManager;
 import dev.tilegame.input.MouseManager;
 import dev.tilegame.net.GameClient_UDP;
-import dev.tilegame.net.GameServer_UDP;
 import dev.tilegame.net.packets.Packet00Login;
 import dev.tilegame.states.GameState;
 import dev.tilegame.states.LoadingState;
@@ -31,6 +23,7 @@ import dev.tilegame.states.State;
 
 public class Game implements Runnable, Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	public static Database database = new Database();
 	public static final int grid=32;
 	public static final int worldSize=50;
@@ -63,17 +56,16 @@ public class Game implements Runnable, Serializable {
 	
 	//NET
 	private static GameClient_UDP socketClient=null;
-	private static GameServer_UDP socketServer=null;
+	//private static GameServer_UDP socketServer=null;
 	private static boolean server=false; 
 	private String nickname;
-	private String serverPublicAddress="";
-	private String serverAddress="";
-	private int serverPort=1331;
+	public static String serverPublicAddress="";
+	public static String serverAddress="";
+	public static int serverPort;
 	
 	
 	//COSTRUCTOR
-	public Game(String nickname, String title, int displayWidth, int displayHeight){
-		this.nickname = nickname;
+	public Game(String title, int displayWidth, int displayHeight){
 		this.title = title;
 		this.displayWidth = displayWidth;
 		this.displayHeight = displayHeight;
@@ -81,6 +73,8 @@ public class Game implements Runnable, Serializable {
 		running = false;
 		keyManager = new KeyManager(this);
 		mouseManager = new MouseManager();
+		
+		new SignUpLogInFrame(this);
 	}
 	
 	public synchronized void start(){
@@ -153,27 +147,8 @@ public class Game implements Runnable, Serializable {
 		
 		//### NETWORK ############################################
 		
-		server = (JOptionPane.showConfirmDialog(null, "Do you want to host other players?")==0?true:false);
-		if(Game.server) {
-			try {
-				URL url_name = new URL("http://bot.whatismyipaddress.com");
-				BufferedReader sc = new BufferedReader(new InputStreamReader(url_name.openStream()));
-				serverPublicAddress = sc.readLine().trim();
-				serverAddress = InetAddress.getLocalHost().getHostAddress().toString();
-			} catch (UnknownHostException e) {} catch (MalformedURLException e) {} catch (IOException e) {}
-			
-			serverPort = Integer.parseInt(JOptionPane.showInputDialog("Select port (es. 1331)"));			
-			Game.socketServer = new GameServer_UDP(handler, serverPort);
-			Game.socketServer.start();
-		}
-		else {
-			serverAddress = JOptionPane.showInputDialog("Please enter server ip address (es. 192.168.1.1)");
-			serverPort = Integer.parseInt(JOptionPane.showInputDialog("Please enter server port (es. 1331)"));
-		}
-		
 		//Creazione Socket Client
 		Game.socketClient = new GameClient_UDP(handler, serverAddress, serverPort);
-		Game.socketClient.start();
 		
 		//Creazione e aggiunta del proprio Player
 		player = new PlayerMP(1, nickname, handler, 400, 400, null, -1);		
@@ -181,9 +156,6 @@ public class Game implements Runnable, Serializable {
 		
 		//Creazione pacchetto login
 		Packet00Login loginPacket = new Packet00Login(player.getUsername(), (int)player.getX(), (int)player.getY());
-
-		//(IF SERVER) Aggiunge il giocatore che fa anche da server alla lista giocatori
-		if(socketServer!=null) socketServer.addConnection((PlayerMP)player, loginPacket);
 		
 		//Invia al server il pacchetto login contenente il proprio username
 		loginPacket.writeData(Game.socketClient);
@@ -223,10 +195,10 @@ public class Game implements Runnable, Serializable {
 	public GameCamera getCamera() { return camera; }
 	public static Player getPlayer() { return Game.player; }
 	public static GameClient_UDP getClient() { return Game.socketClient; }
-	public static GameServer_UDP getServer() { return Game.socketServer; }
 	public String getServerPublicAddress() { return serverPublicAddress; }
 	public String getServerAddress() { return serverAddress; }
 	public int getServerPort() { return serverPort; }
 	public static boolean isServer() { return Game.server; }
+	public void setNickname(String nickname) { this.nickname=nickname; }
 	
 }

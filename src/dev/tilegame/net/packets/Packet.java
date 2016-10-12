@@ -1,7 +1,6 @@
 package dev.tilegame.net.packets;
 
 import dev.tilegame.net.GameClient_UDP;
-import dev.tilegame.net.GameServer_UDP;
 
 public abstract class Packet {
 	public static enum PacketTypes {
@@ -19,7 +18,6 @@ public abstract class Packet {
 	}
 	
 	public abstract void writeData(GameClient_UDP client);
-	public abstract void writeData(GameServer_UDP server);
 	public abstract byte[] getData();
 	
 	public String readData(byte[] data) {

@@ -1,6 +1,5 @@
 package dev.tilegame.net.packets;
 import dev.tilegame.net.GameClient_UDP;
-import dev.tilegame.net.GameServer_UDP;
 
 public class Packet11Tile extends Packet{
 	
@@ -34,9 +33,6 @@ public class Packet11Tile extends Packet{
 	
 	@Override
 	public void writeData(GameClient_UDP client) { client.sendData(getData()); }
-
-	@Override
-	public void writeData(GameServer_UDP server) { server.sendDataToAllClients(getData()); }
 
 	public int getTileIndex() { return tileIndex; }
 	public int hasCollision() { return collision; }
